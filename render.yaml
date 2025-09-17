@@ -1,0 +1,22 @@
+# render.yaml (ORDER/API repo) — v15.10 no DB (Free)
+services:
+  - type: web
+    name: qr-order-api
+    env: node
+    buildCommand: npm install
+    startCommand: node server.js
+    autoDeploy: true
+    healthCheckPath: /healthz
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: ADMIN_PASSWORD
+        value: <YOUR_ADMIN_PASSWORD>               # must match admin
+      # Optional in production to restrict origins (comma-separated)
+      - key: ALLOWED_ORIGINS
+        value: https://<ADMIN_DOMAIN>,https://<ORDER_DOMAIN>
+      # Toss Payments sandbox keys => free tests
+      - key: TOSS_CLIENT_KEY
+        value: test_ck_xxxxxxxxxx
+      - key: TOSS_SECRET_KEY
+        value: test_sk_xxxxxxxxxx                   # needed for sandbox refund
